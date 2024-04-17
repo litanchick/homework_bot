@@ -1,12 +1,13 @@
 import logging
 import os
-import time
 import sys
+import time
 
 import requests
 import telegram
 from dotenv import load_dotenv
 from telegram.ext import Updater
+
 import exceptions
 
 load_dotenv()
