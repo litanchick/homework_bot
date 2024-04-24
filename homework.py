@@ -84,11 +84,11 @@ def check_response(response):
         raise exceptions.ValueDictNone(
             'Данные не соответствуют запросу, нет названия работы.'
         )
-    if not response['current_date']:
+    if 'current_date' not in response:
         raise exceptions.ValueDictNone(
             'Данные не соответствуют запросу, нет текущей даты.'
         )
-    if type(response['homeworks']).__name__ != 'list':
+    if not isinstance(response['homeworks'], list):
         raise TypeError(
             'Под ключом <homeworks> не список, как мы ожидали.'
         )
@@ -96,16 +96,15 @@ def check_response(response):
 
 def parse_status(homework):
     """Проверяем изменился ли статус проекта."""
-    if not homework:
-        raise ValueError(
-            'Словарь пришел пустой. А мы ожидали словарь с данными.'
-        )
-
     if 'homework_name' not in homework:
         raise exceptions.ValueDictNone(
             'Данные не соответствуют запросу, нет ключа: homework_name.'
         )
     homework_name = homework['homework_name']
+    if 'status' not in homework:
+        raise exceptions.ValueDictNone(
+            'Данные не соответствуют запросу, нет ключа: status.'
+        )
     status = homework['status']
     if status not in HOMEWORK_VERDICTS:
         raise exceptions.ValueDictNone(
