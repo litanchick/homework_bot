@@ -129,7 +129,10 @@ def main():
             response = get_api_answer(timestamp)
             check_response(response)
             homework = response.get('homeworks')
-            message = parse_status(homework[0])
+            if homework:
+                message = parse_status(homework[0])
+            else:
+                logging.debug('Пустой список домашней работы.')
         except Exception as error:
             error_check = check_message(error_check, error, bot)
             logging.error(message, exc_info=True)
